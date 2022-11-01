@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="/css/_header.css">
+
+<header class="header">
+    <div class="logo">Habitt.</div>
+
+    <ul id="menu">
+        <li class="menu__item">
+            <a href="/home">
+                <i class="fa-solid fa-house"></i>
+            </a>
+        </li>
+        <li class="menu__item">
+            <a href="/details">
+                <i class="fa-solid fa-calendar-week"></i>
+            </a>
+        </li>
+    </ul>
+
+    <div class="actions">
+        <span><i class="fa-solid fa-user"></i> <%= user.name %></span>
+        <a href="/logout">Logout <i class="fa-solid fa-arrow-right-to-bracket"></i></a>
+    </div>
+</header>
+
+<!-- <script>
+    function logout(){
+        location.href = "/logout";
+        console.log(location.href)
+    }
+</script> -->
+

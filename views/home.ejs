@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="/css/home.css">
+<div class="home">
+    <%- include('./partials/_header.ejs') %>
+    
+    <!-- Input for a new habit to track -->
+    <form action="/createHabit" method="post" class="add__habit">
+        <input type="text" name="name" id="habit__name" placeholder="Habit Name">
+        
+        <button type="submit">Add Habit</button>
+    </form>
+
+    <h1 class="heading">
+        Habits:
+    </h1>
+
+    <!-- List of all habits with current day status and delete option -->
+    <div id="habits">
+        <% if(user.habits.length < 1){ %>
+            <h1 class="default_message">No habits found 🙁. Add some habits to track!</h1>            
+        <% } %>
+       <% for(let i = 0; i < user.habits.length; i++) {%> 
+        <div class="habit">
+            <div class="details">
+                <span class="text"><%= user.habits[i].name%></span>
+                <span class="progress">Progress: <%= user.habits[i].progress %>/7</span>
+            </div>
+            <div class="btns">
+                <%  let habit_id = user.habits[i].id;
+                    let habit_status = user.habits[i].dates[user.habits[i].dates.length-1].status; 
+                    let habit_day = user.habits[i].dates.length-1;
+
+                if(habit_status == "done"){%>
+                <a href="/updateStatus/?id=<%= habit_id %>&day=<%= habit_day %>">
+                    <span class="status done">
+                        <i class="fa-solid fa-check" data-val="done"></i>
+                    </span>
+                </a>
+                <% } else if(habit_status == "not-done"){%>
+                <a href="/updateStatus/?id=<%= habit_id %>&day=<%= habit_day %>">
+                    <span class="status not__done">
+                        <i class="fa-solid fa-xmark" data-val="not-done"></i>
+                    </span>
+                </a>
+                <% } else {%>
+                <a href="/updateStatus/?id=<%= habit_id %>&day=<%= habit_day %>">
+                    <span class="status none">
+                        <i class="fa-solid fa-minus" data-val="none"></i>
+                    </span>
+                </a>
+                <% } %>
+                <a href="/delete/?id=<%= habit_id %>">
+                    <span class="delete">
+                        <i class="fa-solid fa-trash"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <% }%>
+    </div>
+</div>

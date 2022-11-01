@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="/css/details.css">
+<div class="habit__details">
+
+    <%- include('./partials/_header.ejs') %>
+        <h1 id="heading">Week View Of Habits</h1>
+        <div class="dates">
+            <% for(let day of data.days) {%>
+                <div class="date">
+                    <%= day %>
+                </div>
+            <% } %>
+        </div>
+
+        <!-- seven days view  -->
+        <div class="habit__list">
+            <% if(data.habits.length < 1) {%>
+                <h1 class="default_message">No habit to track!</h1>
+            <% } %>
+            <% for(let i=0; i < data.habits.length; i++) { %>
+                <div class="habit__container">
+                    <h3 class="habit__name">
+                        <%= data.habits[i].name %>
+                    </h3>
+                    <div class="habit__item">
+                        <% let count_days = 0;
+                        for(let j= data.habits[i].dates.length-1; j >= 0; j--) { %>
+                            <div class="day">
+                                <div class="icon__head"><%= data.weekdays[count_days++] %></div>
+                                <div class="icon__body">
+                                    <% let status=data.habits[i].dates[j].status; 
+                                        let habit_id = data.habits[i].id;
+                                    if(status === "done" ){ %>
+                                        <a href="/updateStatus/?id=<%= habit_id %>&day=<%= j %>">
+                                            <span class="status done">
+                                                <i class="fa-solid fa-check"></i>
+                                            </span>
+                                        </a>
+                                    <% } else if(status === "not-done"){ %>
+                                        <a href="/updateStatus/?id=<%= habit_id %>&day=<%= j %>">
+
+                                            <span class="status not__done"><i class="fa-solid fa-xmark"></i></span>
+                                        </a>
+                                    <% } else {%>
+                                        <a href="/updateStatus/?id=<%= habit_id %>&day=<%= j %>">
+                                        <span class="status none"><i class="fa-solid fa-minus"></i></span>
+                                        </a>
+                                    <% } %>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+                <% } %>
+        </div>
+</div>
+
